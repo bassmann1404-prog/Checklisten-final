@@ -24,6 +24,19 @@ jobs:
       - name: Sync Capacitor Android
         run: |
           npx cap sync
+          
+      - name: Repair Gradle Wrapper
+        run: |
+          cd android
+          rebuild_wrapper() {
+            curl -L https://gradle.org -o gradle.zip
+            unzip -q gradle.zip
+            mv gradle-8.2.1/lib/plugins/gradle-plugins-*.jar gradle/wrapper/gradle-wrapper.jar 2>/dev/null || true
+            # Nutze lokales Java um den Wrapper sauber neu zu generieren
+            gradle-8.2.1/bin/gradle wrapper --gradle-version 8.2.1
+            rm -rf gradle.zip gradle-8.2.1
+          }
+          rebuild_wrapper
         
       - name: Build APK
         run: |
