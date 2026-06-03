@@ -25,11 +25,11 @@ jobs:
         run: |
           npx cap sync
           
-      - name: Upgrade Gradle Wrapper to 8.7
+      - name: Upgrade Gradle Wrapper to 8.11.1
         run: |
           cd android
           rm -f gradle/wrapper/gradle-wrapper.jar
-          gradle wrapper --gradle-version 8.7 --distribution-type bin
+          gradle wrapper --gradle-version 8.11.1 --distribution-type bin
         
       - name: Build APK
         run: |
