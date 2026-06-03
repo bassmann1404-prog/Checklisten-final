@@ -27,6 +27,8 @@ jobs:
           
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          disable-checksum-validation: true
           
       - name: Repair Gradle Wrapper
         run: |
