@@ -28,14 +28,15 @@ jobs:
       - name: Fresh Gradle Wrapper Generation
         run: |
           cd android
-          rm -rf gradle/wrapper/gradle-wrapper.jar
+          rm -f gradle/wrapper/gradle-wrapper.jar
           gradle wrapper --gradle-version 8.2.1
         
-      - name: Build APK
+      - name: Build APK (Isolated Cache)
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-build-cache
+          mkdir -p .gradle_local_cache
+          ./gradlew assembleDebug --project-cache-dir .gradle_local_cache -g .gradle_local_cache --no-daemon --no-build-cache
           
       - name: Upload APK
         uses: actions/upload-artifact@v4
