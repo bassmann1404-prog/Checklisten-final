@@ -8,12 +8,12 @@ jobs:
       
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '21'
+          java-version: '17'
           
       - name: Install Dependencies
         run: npm install
@@ -41,7 +41,7 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --no-daemon --no-build-cache
           
       - name: Upload APK
         uses: actions/upload-artifact@v4
